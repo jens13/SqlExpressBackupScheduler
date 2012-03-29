@@ -24,15 +24,7 @@
 // 
 // More info: http://www.opensource.org/licenses/bsd-license.php
 #endregion
-namespace SebScheduler.Core
-{
-    public interface ISqlBackupJob
-    {
-        string Server { get; }
-        string Database { get; }
-        string BackupWith { get; }
-        bool Compression { get; }
-        string EncryptionKey { get; }
-        string Filename { get; }
-    }
-}
+using System.Reflection;
+
+[assembly: AssemblyTitle("SebScheduler.Compression")]
+[assembly: AssemblyDescription("´Library for managing compression and encryption")]

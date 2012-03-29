@@ -24,15 +24,10 @@
 // 
 // More info: http://www.opensource.org/licenses/bsd-license.php
 #endregion
-namespace SebScheduler.Core
+namespace SebScheduler.Compression
 {
-    public interface ISqlBackupJob
+    public class LzmaReader
     {
-        string Server { get; }
-        string Database { get; }
-        string BackupWith { get; }
-        bool Compression { get; }
-        string EncryptionKey { get; }
-        string Filename { get; }
+         
     }
 }

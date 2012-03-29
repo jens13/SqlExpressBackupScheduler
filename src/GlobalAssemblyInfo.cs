@@ -24,15 +24,19 @@
 // 
 // More info: http://www.opensource.org/licenses/bsd-license.php
 #endregion
-namespace SebScheduler.Core
-{
-    public interface ISqlBackupJob
-    {
-        string Server { get; }
-        string Database { get; }
-        string BackupWith { get; }
-        bool Compression { get; }
-        string EncryptionKey { get; }
-        string Filename { get; }
-    }
-}
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+[assembly: AssemblyProduct("SqlExpressBackupScheduler")]
+[assembly: AssemblyCopyright("Copyright ©  2012")]
+
+[assembly: ComVisible(false)]
+
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+[assembly: AssemblyVersion("0.9.1.0")]

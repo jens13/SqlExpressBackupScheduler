@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A4D10327-4560-43AC-8A3B-ED69D30AFD4F}</ProjectGuid>
+    <ProjectGuid>{B92DDA7A-E9FB-4889-8B33-5AD706853B74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SebScheduler.SqlBackup</RootNamespace>
-    <AssemblyName>SebScheduler.SqlBackup</AssemblyName>
+    <RootNamespace>SevenZip</RootNamespace>
+    <AssemblyName>SevenZip.LZMA</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,18 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="BackupJob.cs" />
+    <Compile Include="CRC.cs" />
+    <Compile Include="ICoder.cs" />
+    <Compile Include="IMatchFinder.cs" />
+    <Compile Include="LZMA\LzmaBase.cs" />
+    <Compile Include="LZMA\LzmaDecoder.cs" />
+    <Compile Include="LZMA\LzmaEncoder.cs" />
+    <Compile Include="LZ\LzBinTree.cs" />
+    <Compile Include="LZ\LzInWindow.cs" />
+    <Compile Include="LZ\LzOutWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlExpress.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\SebScheduler.Core.csproj">
-      <Project>{9E8F6D52-6E7F-4ECD-A576-A44646AC43DE}</Project>
-      <Name>SebScheduler.Core</Name>
-    </ProjectReference>
+    <Compile Include="RangeCoder\RangeCoder.cs" />
+    <Compile Include="RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="RangeCoder\RangeCoderBitTree.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
