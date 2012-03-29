@@ -48,6 +48,10 @@
     <Compile Include="SqlExpress.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Compression\SebScheduler.Compression.csproj">
+      <Project>{D86EEB92-D6F7-40ED-8961-3F8DE62C6F83}</Project>
+      <Name>SebScheduler.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\SebScheduler.Core.csproj">
       <Project>{9E8F6D52-6E7F-4ECD-A576-A44646AC43DE}</Project>
       <Name>SebScheduler.Core</Name>

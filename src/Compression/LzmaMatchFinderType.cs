@@ -26,8 +26,10 @@
 #endregion
 namespace SebScheduler.Compression
 {
-    public class LzmaReader
+    public enum LzmaMatchFinderType
     {
-         
+        None = 0,
+        BT2 = 10,
+        BT4 = 20,
     }
 }

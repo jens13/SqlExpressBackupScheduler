@@ -43,9 +43,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="LZMAReader.cs" />
-    <Compile Include="LZMAWriter.cs" />
+    <Compile Include="LzmaMatchFinderType.cs" />
+    <Compile Include="LzmaProperties.cs" />
+    <Compile Include="Lzma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Compression.LZMA\SevenZip.Compression.LZMA.csproj">
+      <Project>{B92DDA7A-E9FB-4889-8B33-5AD706853B74}</Project>
+      <Name>SevenZip.Compression.LZMA</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

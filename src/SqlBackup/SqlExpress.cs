@@ -27,6 +27,8 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
+using SebScheduler.Compression;
 using SebScheduler.Core;
 
 namespace SebScheduler.SqlBackup
@@ -36,8 +38,11 @@ namespace SebScheduler.SqlBackup
         public void CreateBackup(ISqlBackupJob job)
         {
             // create file
+            var tempBackupFile = "";
+            var tempScriptFile = "";
+            var tempCompressedFile = "";
             var script = new StringBuilder();
-            script.Append("BACKUP DATABASE [").Append(job.Database).Append("] TO  DISK = N'").Append(job.Filename).Append("'");
+            script.Append("BACKUP DATABASE [").Append(job.Database).Append("] TO  DISK = N'").Append(tempBackupFile).Append("'");
             var with = job.BackupWith??"";
             if (!string.IsNullOrWhiteSpace(with))
             {
@@ -51,11 +56,21 @@ namespace SebScheduler.SqlBackup
             script.AppendLine().Append("GO");
 
             // write to temporary script file
+            
             // run program sqlcmd
             // sqlcmd -S .\CITRIX_METAFRAME -i "C:\<enter path to .sql file>\DatastoreBackup.sql"
+            
             // ?? compress
-            // ?? delete backup file
-            // delete script file
+            Lzma.Compress(tempBackupFile, tempCompressedFile,new LzmaProperties());
+
+            // Copy compressed file to target location
+            File.Copy(tempCompressedFile, job.Filename, true);
+
+            Thread.Sleep(60000);
+            // delete temporary files
+            File.Delete(tempBackupFile);
+            File.Delete(tempCompressedFile);
+            File.Delete(tempScriptFile);
         }
     }
 }
