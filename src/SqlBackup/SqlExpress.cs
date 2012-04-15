@@ -25,6 +25,7 @@
 // More info: http://www.opensource.org/licenses/bsd-license.php
 #endregion
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -38,9 +39,15 @@ namespace SebScheduler.SqlBackup
         public void CreateBackup(ISqlBackupJob job)
         {
             // create file
+            var targetFile = job.Filename;
             var tempBackupFile = "";
             var tempScriptFile = "";
             var tempCompressedFile = "";
+
+            // Create target filename
+            targetFile = Path.Combine(Path.GetDirectoryName(targetFile) ?? @"c:\", Path.GetFileNameWithoutExtension(targetFile) + "_" + DateTime.Now.ToString("yyyy-MM-dd_hh:mm:ss") + Path.GetExtension(targetFile));
+
+            // Create Sql script
             var script = new StringBuilder();
             script.Append("BACKUP DATABASE [").Append(job.Database).Append("] TO  DISK = N'").Append(tempBackupFile).Append("'");
             var with = job.BackupWith??"";
@@ -56,15 +63,23 @@ namespace SebScheduler.SqlBackup
             script.AppendLine().Append("GO");
 
             // write to temporary script file
-            
+            File.WriteAllText(tempScriptFile, script.ToString());
+
             // run program sqlcmd
             // sqlcmd -S .\CITRIX_METAFRAME -i "C:\<enter path to .sql file>\DatastoreBackup.sql"
+            var arguments = new StringBuilder();
+            arguments.Append(" -S \"").Append(job.Server).Append("\" -i \"").Append(tempScriptFile).Append("\"");
+            Process.Start("sqlcmd.exe", arguments.ToString());
             
-            // ?? compress
-            Lzma.Compress(tempBackupFile, tempCompressedFile,new LzmaProperties());
+            // compress
+            if (job.Compression)
+            {
+                Lzma.Compress(tempBackupFile, tempCompressedFile, new LzmaProperties());
+                tempBackupFile = tempCompressedFile;
+            }
 
             // Copy compressed file to target location
-            File.Copy(tempCompressedFile, job.Filename, true);
+            File.Copy(tempBackupFile, targetFile, true);
 
             Thread.Sleep(60000);
             // delete temporary files
